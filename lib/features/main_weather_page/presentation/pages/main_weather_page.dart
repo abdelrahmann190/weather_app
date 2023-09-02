@@ -33,37 +33,41 @@ class _MainWeatherPageState extends State<MainWeatherPage> {
           },
           builder: (context, state) {
             if (state is CurrentWeatherState) {
-              return PageView.builder(
-                physics: const BouncingScrollPhysics(),
-                onPageChanged: (value) async {
-                  setState(
-                    () {
-                      colorIndex = value;
-                    },
-                  );
-                  manageBlocFunctions(value);
-                },
-                itemCount: state.savedCitiesList.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Expanded(
-                        flex: 4,
-                        child: buildCurrentWeatherItems(state),
-                      ),
-                      buildWeatehrforecastTextLine(),
-                      const Gap(20),
-                      buildWeatherForecastCards(),
-                    ],
-                  );
-                },
-              );
+              return handleCurrentWeatherState(state);
             } else {
               return const CircularProgressIndicator();
             }
           },
         ),
       ),
+    );
+  }
+
+  PageView handleCurrentWeatherState(CurrentWeatherState state) {
+    return PageView.builder(
+      physics: const BouncingScrollPhysics(),
+      onPageChanged: (value) async {
+        setState(
+          () {
+            colorIndex = value;
+          },
+        );
+        manageBlocFunctions(value);
+      },
+      itemCount: state.savedCitiesList.length,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            Expanded(
+              flex: 4,
+              child: buildCurrentWeatherItems(state),
+            ),
+            buildWeatehrforecastTextLine(),
+            const Gap(20),
+            buildWeatherForecastCards(),
+          ],
+        );
+      },
     );
   }
 

@@ -38,7 +38,7 @@ class CurrentWeatherLoading extends CurrentWeatherState {
 }
 
 class CurrentWeatherLoaded extends CurrentWeatherState {
-  final CurrentWeather currentWeather;
+  final CurrentWeatherEntity currentWeather;
 
   const CurrentWeatherLoaded({
     required this.currentWeather,
@@ -80,7 +80,7 @@ abstract class WeeklyWeatherForecastState extends AppControllerState {}
 class WeeklyWeatherForecastLoading extends WeeklyWeatherForecastState {}
 
 class WeeklyWeatherForecastLoaded extends WeeklyWeatherForecastState {
-  final List<WeeklyForecast> weeklyForecastList;
+  final List<WeeklyForecastEntity> weeklyForecastList;
   final List savedCitiesList;
   final bool isDataInC;
 

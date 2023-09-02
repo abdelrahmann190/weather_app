@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/app_router.dart';
 
-import 'package:weather_app/features/core/services/service_locator.dart';
+import 'package:weather_app/features/core/services/get_it_service_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,7 +10,7 @@ void main() async {
 
   runApp(
     WeatherApp(
-      appRouter: serviceLocator(),
+      appRouter: getItServiceLocator(),
     ),
   );
 }
@@ -25,7 +25,7 @@ class WeatherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Weather Page',
+      title: 'Weather App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

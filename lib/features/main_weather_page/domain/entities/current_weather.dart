@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-class CurrentWeather extends Equatable {
+class CurrentWeatherEntity extends Equatable {
   final String cityName;
   final int tempC;
   final int tempF;
@@ -19,7 +19,7 @@ class CurrentWeather extends Equatable {
   final int minTempC;
   final int minTempF;
 
-  const CurrentWeather({
+  const CurrentWeatherEntity({
     required this.cityName,
     required this.tempC,
     required this.tempF,

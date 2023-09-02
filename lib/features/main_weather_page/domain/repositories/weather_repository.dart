@@ -4,9 +4,9 @@ import 'package:weather_app/features/main_weather_page/domain/entities/current_w
 import 'package:weather_app/features/main_weather_page/domain/entities/weekly_forecast.dart';
 
 abstract class WeatherRepository {
-  Future<Either<Failure, CurrentWeather>> getCurrentWeather(
+  Future<Either<Failure, CurrentWeatherEntity>> getCurrentWeather(
       int currentCityIndex);
-  Future<Either<Failure, List<WeeklyForecast>>> getWeeklyWeatherForecast(
+  Future<Either<Failure, List<WeeklyForecastEntity>>> getWeeklyWeatherForecast(
       int currentCityIndex);
   Future<Either<Failure, String>> addCurrentCityToSavedCitiesList();
   Future<void> addCityNameFromCitySelectionListToSavedCitiesList(

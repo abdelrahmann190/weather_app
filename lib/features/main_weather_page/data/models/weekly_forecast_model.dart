@@ -1,6 +1,6 @@
 import 'package:weather_app/features/main_weather_page/domain/entities/weekly_forecast.dart';
 
-class WeeklyForeCastModel extends WeeklyForecast {
+class WeeklyForeCastModel extends WeeklyForecastEntity {
   const WeeklyForeCastModel({
     required int maxTempC,
     required int maxTempF,

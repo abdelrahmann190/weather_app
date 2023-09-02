@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-class WeeklyForecast extends Equatable {
+class WeeklyForecastEntity extends Equatable {
   final int maxTempC;
   final int maxTempF;
   final int minTempC;
@@ -15,7 +15,7 @@ class WeeklyForecast extends Equatable {
   final String icon;
   final String date;
 
-  const WeeklyForecast({
+  const WeeklyForecastEntity({
     required this.maxTempC,
     required this.maxTempF,
     required this.minTempC,

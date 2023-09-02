@@ -20,118 +20,118 @@ import 'package:weather_app/features/main_weather_page/domain/usecases/remove_ci
 import 'package:weather_app/features/main_weather_page/domain/usecases/set_weather_data_type.dart';
 import 'package:weather_app/features/main_weather_page/presentation/controllers/weather_bloc/app_controller_bloc.dart';
 
-final GetIt serviceLocator = GetIt.instance;
+final GetIt getItServiceLocator = GetIt.instance;
 
 class ServiceLocator {
   static Future<void> initServiceLocator() async {
     //Router
-    serviceLocator.registerLazySingleton<AppRouter>(
+    getItServiceLocator.registerLazySingleton<AppRouter>(
       () => AppRouter(),
     ); //Data Source
-    serviceLocator.registerLazySingleton<WeatherRemoteDataSource>(
+    getItServiceLocator.registerLazySingleton<WeatherRemoteDataSource>(
       () => WeatherRemoteDataSourceImpl(
-        weatherLocalDataSource: serviceLocator(),
+        weatherLocalDataSource: getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton<WeatherLocalDataSource>(
+    getItServiceLocator.registerLazySingleton<WeatherLocalDataSource>(
       () => WeatherLocalDataSourceImpl(
-        sharedPreferences: serviceLocator(),
+        sharedPreferences: getItServiceLocator(),
       ),
     );
 
     //Repositories
-    serviceLocator.registerLazySingleton<WeatherRepository>(
+    getItServiceLocator.registerLazySingleton<WeatherRepository>(
       () => WeatherRepositoryImpl(
-        weatherRemoteDataSource: serviceLocator(),
-        weatherLocalDataSource: serviceLocator(),
-        networkInfo: serviceLocator(),
-        currentCityName: serviceLocator(),
+        weatherRemoteDataSource: getItServiceLocator(),
+        weatherLocalDataSource: getItServiceLocator(),
+        networkInfo: getItServiceLocator(),
+        currentCityName: getItServiceLocator(),
       ),
     );
     //Use Cases
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => GetCurrentWeather(
-        weatherRepository: serviceLocator(),
+        weatherRepository: getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => GetWeeklyWeatherForecast(
-        weatherRepository: serviceLocator(),
+        weatherRepository: getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => AddCurrentCityToCitiesList(
-        weatherRepository: serviceLocator(),
+        weatherRepository: getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton(
-      () => CurrentCityName(),
+    getItServiceLocator.registerLazySingleton(
+      () => LocationHelper(),
     );
 
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => CacheCityName(
-        weatherRepository: serviceLocator(),
+        weatherRepository: getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => CheckIfTheAppIsBeingOpenedForFirstTime(
-        weatherRepository: serviceLocator(),
+        weatherRepository: getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => GetSavedCitiesList(
-        serviceLocator(),
+        getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => AddCityNameFromCitySelectionListToSavedCitiesList(
-        weatherRepository: serviceLocator(),
+        weatherRepository: getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => RemoveCityFromSavedCitiesList(
-        serviceLocator(),
+        getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => SetWeathreDataType(
-        serviceLocator(),
+        getItServiceLocator(),
       ),
     );
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => CheckIfDataInCelsious(
-        weatherRepository: serviceLocator(),
+        weatherRepository: getItServiceLocator(),
       ),
     );
     //Bloc
-    serviceLocator.registerFactory(
+    getItServiceLocator.registerFactory(
       () => AppControllerBloc(
-        serviceLocator(),
-        serviceLocator(),
-        serviceLocator(),
-        serviceLocator(),
-        serviceLocator(),
-        serviceLocator(),
-        serviceLocator(),
-        serviceLocator(),
-        serviceLocator(),
-        serviceLocator(),
+        getItServiceLocator(),
+        getItServiceLocator(),
+        getItServiceLocator(),
+        getItServiceLocator(),
+        getItServiceLocator(),
+        getItServiceLocator(),
+        getItServiceLocator(),
+        getItServiceLocator(),
+        getItServiceLocator(),
+        getItServiceLocator(),
       ),
     );
 
     //Core
-    serviceLocator.registerLazySingleton<NetworkInfo>(
+    getItServiceLocator.registerLazySingleton<NetworkInfo>(
       () => NetworkInfoImpl(
-        connectionChecker: serviceLocator(),
+        connectionChecker: getItServiceLocator(),
       ),
     );
 
     //External
     final sharedPreferences = await SharedPreferences.getInstance();
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => sharedPreferences,
     );
-    serviceLocator.registerLazySingleton(
+    getItServiceLocator.registerLazySingleton(
       () => InternetConnectionChecker(),
     );
   }

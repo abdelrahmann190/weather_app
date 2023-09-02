@@ -6,7 +6,7 @@ import 'package:weather_app/features/main_weather_page/domain/entities/current_w
 
 class WeatherConditionsCard extends StatefulWidget {
   final Color backgroundColor;
-  final CurrentWeather currentWeather;
+  final CurrentWeatherEntity currentWeather;
   final bool isDataInC;
   const WeatherConditionsCard({
     Key? key,

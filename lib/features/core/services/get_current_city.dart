@@ -3,8 +3,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/features/core/error/exceptions.dart';
 
-class CurrentCityName {
-  Future<String> getCurrentCityName() async {
+class LocationHelper {
+  Future<String> getCurrentCityNameByLocation() async {
     try {
       final position = await _determinePosition();
       List<Placemark> placemarks = await placemarkFromCoordinates(

@@ -1,6 +1,6 @@
 import 'package:weather_app/features/main_weather_page/domain/entities/current_weather.dart';
 
-class CurrentWeatherModel extends CurrentWeather {
+class CurrentWeatherModel extends CurrentWeatherEntity {
   const CurrentWeatherModel({
     required final String cityName,
     required final int tempC,

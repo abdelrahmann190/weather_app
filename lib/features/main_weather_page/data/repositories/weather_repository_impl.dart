@@ -16,7 +16,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
   final WeatherRemoteDataSource weatherRemoteDataSource;
   final WeatherLocalDataSource weatherLocalDataSource;
   final NetworkInfo networkInfo;
-  final CurrentCityName currentCityName;
+  final LocationHelper currentCityName;
   WeatherRepositoryImpl({
     required this.weatherRemoteDataSource,
     required this.weatherLocalDataSource,
@@ -24,7 +24,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
     required this.currentCityName,
   });
   @override
-  Future<Either<Failure, CurrentWeather>> getCurrentWeather(
+  Future<Either<Failure, CurrentWeatherEntity>> getCurrentWeather(
       int currentCityIndex) async {
     if (await networkInfo.isConnected) {
       return await _checkCachedCurrentWeatherDataAgainstCurrentDate(
@@ -37,7 +37,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
   }
 
   @override
-  Future<Either<Failure, List<WeeklyForecast>>> getWeeklyWeatherForecast(
+  Future<Either<Failure, List<WeeklyForecastEntity>>> getWeeklyWeatherForecast(
       int currentCityIndex) async {
     if (await networkInfo.isConnected) {
       return await _checkIfCachedWeeklyForecastIsEqualToCurrentDate(
@@ -58,7 +58,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
     }
   }
 
-  Future<Either<Failure, CurrentWeather>> _getLiveCurrentWeatherData(
+  Future<Either<Failure, CurrentWeatherEntity>> _getLiveCurrentWeatherData(
       int currentCityIndex) async {
     try {
       final currentWeatherData =
@@ -79,11 +79,12 @@ class WeatherRepositoryImpl extends WeatherRepository {
     }
   }
 
-  Future<Either<Failure, CurrentWeather>> _getLocalCurrentWeather(
+  Future<Either<Failure, CurrentWeatherEntity>> _getLocalCurrentWeather(
       int currentCityIndex) async {
     try {
-      final CurrentWeather localCurrentWeather = await weatherLocalDataSource
-          .getCachedCurrentWeather(currentCityIndex);
+      final CurrentWeatherEntity localCurrentWeather =
+          await weatherLocalDataSource
+              .getCachedCurrentWeather(currentCityIndex);
       return Right(localCurrentWeather);
     } on Exception catch (error) {
       return Left(
@@ -94,15 +95,16 @@ class WeatherRepositoryImpl extends WeatherRepository {
     }
   }
 
-  Future<Either<Failure, CurrentWeather>>
+  Future<Either<Failure, CurrentWeatherEntity>>
       _checkCachedCurrentWeatherDataAgainstCurrentDate(
           int currentCityIndex) async {
     try {
       final String cachedDate = await weatherLocalDataSource
           .getCachedCurrentWeather(0)
           .then((value) => value.lastUpdated);
-      final CurrentWeather localCurrentWeather = await weatherLocalDataSource
-          .getCachedCurrentWeather(currentCityIndex);
+      final CurrentWeatherEntity localCurrentWeather =
+          await weatherLocalDataSource
+              .getCachedCurrentWeather(currentCityIndex);
 
       if (DateFormatter.checkIfCachedHourIsTheSameAsCurrentHour(cachedDate)) {
         return Right(localCurrentWeather);
@@ -148,7 +150,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
   @override
   Future<Either<Failure, String>> addCurrentCityToSavedCitiesList() async {
     try {
-      final cityName = await currentCityName.getCurrentCityName();
+      final cityName = await currentCityName.getCurrentCityNameByLocation();
       weatherLocalDataSource.cacheCurrentCitiesList(cityName);
       return Right(
         cityName,

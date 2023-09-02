@@ -7,7 +7,7 @@ import 'package:weather_app/features/main_weather_page/domain/entities/weekly_fo
 
 class WeatehrForecastPage extends StatefulWidget {
   final Color backgroundColor;
-  final List<WeeklyForecast> weeklyForeCastList;
+  final List<WeeklyForecastEntity> weeklyForeCastList;
   final int currentCardIndex;
   final bool isDataInC;
   const WeatehrForecastPage({
